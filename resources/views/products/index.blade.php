@@ -11,7 +11,7 @@
                     </div>
 
                     <div class="card-body">
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-bordered table-striped" id="productTable">
                             <thead>
                                 <tr>
                                     <th>Category</th>
@@ -66,3 +66,23 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+<script>
+    $(document).ready(function () {
+        $('#productTable').DataTable({
+            responsive: true,
+            language: {
+                search: "Search Categories:",
+                lengthMenu: "Show _MENU_ entries",
+                info: "Showing _START_ to _END_ of _TOTAL_ categories",
+                paginate: {
+                    first: "First",
+                    last: "Last",
+                    next: "→",
+                    previous: "←"
+                },
+            }
+        });
+    });
+</script>
+@endpush
