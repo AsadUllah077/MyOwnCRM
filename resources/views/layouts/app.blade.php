@@ -14,11 +14,14 @@
     {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"> --}}
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="{{asset('css/data-table.min.css')}}">
 
 
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
 </head>
 
 <body>
@@ -29,7 +32,7 @@
                     {{ config(
                         'app.name',
                         '
-                                                            ',
+                                                                                ',
                     ) }}
                 </a>
                 @auth
@@ -47,7 +50,7 @@
                         </a>
                     @endif
                 @endauth
-                 @auth
+                @auth
                     @if (auth()->user()->roles->contains('name', 'user'))
                         <a class="navbar-brand" href="{{ url('/products') }}">
                             products
@@ -115,7 +118,10 @@
 
 
 
-
+    <!-- jQuery and DataTables JS -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="{{asset('js/data-table.min.js')}}"></script>
+    @stack('scripts')
 </body>
 
 </html>

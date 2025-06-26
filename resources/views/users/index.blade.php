@@ -11,7 +11,7 @@
                     </div>
 
                     <div class="card-body">
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-bordered table-striped" id="usersTable">
                             <thead>
                                 <tr>
                                     <th>Name</th>
@@ -54,4 +54,24 @@
             </div>
         </div>
     </div>
+    $@push('scripts')
+        <script>
+            $(document).ready(function() {
+                $('#usersTable').DataTable({
+                    responsive: true,
+                    language: {
+                        search: "Search Users:",
+                        lengthMenu: "Show _MENU_ entries",
+                        info: "Showing _START_ to _END_ of _TOTAL_ users",
+                        paginate: {
+                            first: "First",
+                            last: "Last",
+                            next: "→",
+                            previous: "←"
+                        },
+                    }
+                });
+            });
+        </script>
+    @endpush
 @endsection
