@@ -47,6 +47,13 @@
                         </a>
                     @endif
                 @endauth
+                 @auth
+                    @if (auth()->user()->roles->contains('name', 'user'))
+                        <a class="navbar-brand" href="{{ url('/products') }}">
+                            products
+                        </a>
+                    @endif
+                @endauth
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
