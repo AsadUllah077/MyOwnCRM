@@ -26,13 +26,24 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', '
-                    ') }}
+                    {{ config(
+                        'app.name',
+                        '
+                                                            ',
+                    ) }}
                 </a>
                 @auth
                     @if (auth()->user()->roles->contains('name', 'admin'))
                         <a class="navbar-brand" href="{{ url('/users') }}">
                             Users
+                        </a>
+                    @endif
+                @endauth
+
+                @auth
+                    @if (auth()->user()->roles->contains('name', 'user'))
+                        <a class="navbar-brand" href="{{ url('/categories') }}">
+                            Categories
                         </a>
                     @endif
                 @endauth
