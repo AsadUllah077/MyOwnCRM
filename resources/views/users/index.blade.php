@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <span>{{ __('Users') }}</span>
@@ -11,6 +11,7 @@
                     </div>
 
                     <div class="card-body">
+                        <div class="table-responsive">
                         <table class="table table-bordered table-striped" id="usersTable">
                             <thead>
                                 <tr>
@@ -45,6 +46,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        </div>
 
                         @if ($users->isEmpty())
                             <p class="text-center mt-3">No users found.</p>

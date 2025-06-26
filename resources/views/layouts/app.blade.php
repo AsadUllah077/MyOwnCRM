@@ -15,7 +15,8 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <!-- DataTables CSS -->
-    <link rel="stylesheet" href="{{asset('css/data-table.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/data-table.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/select-2.min.css') }}">
 
 
 
@@ -32,7 +33,7 @@
                     {{ config(
                         'app.name',
                         '
-                                                                                ',
+                                                                                                    ',
                     ) }}
                 </a>
                 @auth
@@ -120,8 +121,16 @@
 
     <!-- jQuery and DataTables JS -->
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-    <script src="{{asset('js/data-table.min.js')}}"></script>
+    <script src="{{ asset('js/data-table.min.js') }}"></script>
+    <script src="{{ asset('js/select-2.min.js') }}"></script>
+
+
     @stack('scripts')
+     <script>
+        $(document).ready(function() {
+            $('.sel-2').select2();
+        });
+    </script>
 </body>
 
 </html>

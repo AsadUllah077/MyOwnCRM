@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <div class="col-md-8 mx-auto">
+    <div class="col-md-12 mx-auto">
         <div class="card">
             <div class="card-header">{{ __('Update Product') }}</div>
 
@@ -15,7 +15,7 @@
                     {{-- Category --}}
                     <div class="form-group mb-3">
                         <label>Category</label>
-                        <select name="category_id" class="form-control form-select">
+                        <select name="category_id" class="form-control form-select sel-2">
                             <option value="">Select Category</option>
                             @foreach ($categories as $category)
                                 <option value="{{ $category->id }}"
