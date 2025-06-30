@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -42,10 +43,18 @@ Route::middleware(['auth', 'is_user'])->group(function () {
     Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
     Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update');
 
-     Route::get('/suppliers', [SupplierController::class, 'index'])->name('suppliers.index');
+    Route::get('/suppliers', [SupplierController::class, 'index'])->name('suppliers.index');
     Route::get('/suppliers/create', [SupplierController::class, 'create'])->name('suppliers.create');
     Route::post('/suppliers/create', [SupplierController::class, 'store'])->name('suppliers.store');
     Route::get('/suppliers/delete/{id}', [SupplierController::class, 'destroy'])->name('suppliers.destroy');
     Route::get('/suppliers/{id}/edit', [SupplierController::class, 'edit'])->name('suppliers.edit');
     Route::put('/suppliers/{id}', [SupplierController::class, 'update'])->name('suppliers.update');
+
+    Route::get('/purchases', [PurchaseController::class, 'index'])->name('purchases.index');
+    Route::get('/purchases/create', [PurchaseController::class, 'create'])->name('purchases.create');
+    Route::post('/purchases/create', [PurchaseController::class, 'store'])->name('purchases.store');
+    Route::delete('/purchases/delete/{id}', [PurchaseController::class, 'destroy'])->name('purchases.destroy');
+    Route::get('/purchases/{id}/show', [PurchaseController::class, 'show'])->name('purchases.show');
+    Route::get('/purchases/{id}/edit', [PurchaseController::class, 'edit'])->name('purchases.edit');
+    Route::put('/purchases/{id}', [PurchaseController::class, 'update'])->name('purchases.update');
 });
