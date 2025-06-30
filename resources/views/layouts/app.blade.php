@@ -54,7 +54,14 @@
                 @auth
                     @if (auth()->user()->roles->contains('name', 'user'))
                         <a class="navbar-brand" href="{{ url('/products') }}">
-                            products
+                            Products
+                        </a>
+                    @endif
+                @endauth
+                 @auth
+                    @if (auth()->user()->roles->contains('name', 'user'))
+                        <a class="navbar-brand" href="{{ url('/suppliers') }}">
+                            Suppliers
                         </a>
                     @endif
                 @endauth

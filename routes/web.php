@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,4 +41,11 @@ Route::middleware(['auth', 'is_user'])->group(function () {
     Route::get('/products/delete/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
     Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
     Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update');
+
+     Route::get('/suppliers', [SupplierController::class, 'index'])->name('suppliers.index');
+    Route::get('/suppliers/create', [SupplierController::class, 'create'])->name('suppliers.create');
+    Route::post('/suppliers/create', [SupplierController::class, 'store'])->name('suppliers.store');
+    Route::get('/suppliers/delete/{id}', [SupplierController::class, 'destroy'])->name('suppliers.destroy');
+    Route::get('/suppliers/{id}/edit', [SupplierController::class, 'edit'])->name('suppliers.edit');
+    Route::put('/suppliers/{id}', [SupplierController::class, 'update'])->name('suppliers.update');
 });
