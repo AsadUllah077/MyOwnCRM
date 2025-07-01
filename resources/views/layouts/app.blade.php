@@ -58,6 +58,20 @@
                         </a>
                     @endif
                 @endauth
+                @auth
+                    @if (auth()->user()->roles->contains('name', 'user'))
+                        <a class="navbar-brand" href="{{ url('/customers') }}">
+                            Customers
+                        </a>
+                    @endif
+                @endauth
+                 @auth
+                    @if (auth()->user()->roles->contains('name', 'user'))
+                        <a class="navbar-brand" href="{{ url('/sales') }}">
+                            Sales
+                        </a>
+                    @endif
+                @endauth
                  @auth
                     @if (auth()->user()->roles->contains('name', 'user'))
                         <a class="navbar-brand" href="{{ url('/suppliers') }}">

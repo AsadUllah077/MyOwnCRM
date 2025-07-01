@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -50,6 +52,13 @@ Route::middleware(['auth', 'is_user'])->group(function () {
     Route::get('/suppliers/{id}/edit', [SupplierController::class, 'edit'])->name('suppliers.edit');
     Route::put('/suppliers/{id}', [SupplierController::class, 'update'])->name('suppliers.update');
 
+     Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
+    Route::get('/customers/create', [CustomerController::class, 'create'])->name('customers.create');
+    Route::post('/customers/create', [CustomerController::class, 'store'])->name('customers.store');
+    Route::get('/customers/delete/{id}', [CustomerController::class, 'destroy'])->name('customers.destroy');
+    Route::get('/customers/{id}/edit', [CustomerController::class, 'edit'])->name('customers.edit');
+    Route::put('/customers/{id}', [CustomerController::class, 'update'])->name('customers.update');
+
     Route::get('/purchases', [PurchaseController::class, 'index'])->name('purchases.index');
     Route::get('/purchases/create', [PurchaseController::class, 'create'])->name('purchases.create');
     Route::post('/purchases/create', [PurchaseController::class, 'store'])->name('purchases.store');
@@ -57,4 +66,12 @@ Route::middleware(['auth', 'is_user'])->group(function () {
     Route::get('/purchases/{id}/show', [PurchaseController::class, 'show'])->name('purchases.show');
     Route::get('/purchases/{id}/edit', [PurchaseController::class, 'edit'])->name('purchases.edit');
     Route::put('/purchases/{id}', [PurchaseController::class, 'update'])->name('purchases.update');
+
+    Route::get('/sales', [SaleController::class, 'index'])->name('sales.index');
+    Route::get('/sales/create', [SaleController::class, 'create'])->name('sales.create');
+    Route::post('/sales/create', [SaleController::class, 'store'])->name('sales.store');
+    Route::delete('/sales/delete/{id}', [SaleController::class, 'destroy'])->name('sales.destroy');
+    Route::get('/sales/{id}/show', [SaleController::class, 'show'])->name('sales.show');
+    Route::get('/sales/{id}/edit', [SaleController::class, 'edit'])->name('sales.edit');
+    Route::put('/sales/{id}', [SaleController::class, 'update'])->name('sales.update');
 });
