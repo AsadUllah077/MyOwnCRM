@@ -5,6 +5,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\PurchaseLedgerController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SaleLedgerController;
 use App\Http\Controllers\SupplierController;
@@ -69,8 +70,9 @@ Route::middleware(['auth', 'is_user'])->group(function () {
     Route::get('/purchases/{id}/edit', [PurchaseController::class, 'edit'])->name('purchases.edit');
     Route::put('/purchases/{id}', [PurchaseController::class, 'update'])->name('purchases.update');
 
-    Route::get('/purchaseledger', [PurchaseLedgerController::class, 'index'])->name('purchaseledger.index');
+    Route::get('/purchaseledger', [PurchaseLedgerController::class, 'index'])->name(name: 'purchaseledger.index');
     Route::get('/saleledger', [SaleLedgerController::class, 'index'])->name('saleledger.index');
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
 
 
     Route::get('/sales', [SaleController::class, 'index'])->name('sales.index');
@@ -78,6 +80,6 @@ Route::middleware(['auth', 'is_user'])->group(function () {
     Route::post('/sales/create', [SaleController::class, 'store'])->name('sales.store');
     Route::delete('/sales/delete/{id}', [SaleController::class, 'destroy'])->name('sales.destroy');
     Route::get('/sales/{id}/show', [SaleController::class, 'show'])->name('sales.show');
-    Route::get('/sales/{id}/edit', [SaleController::class, 'edit'])->name('sales.edit');
+    Route::get('/sales/{id}/edit', [SaleController::class, 'edit'])->name(name: 'sales.edit');
     Route::put('/sales/{id}', [SaleController::class, 'update'])->name('sales.update');
 });

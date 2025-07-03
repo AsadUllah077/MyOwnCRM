@@ -101,6 +101,13 @@
                         </a>
                     @endif
                 @endauth
+                @auth
+                    @if (auth()->user()->roles->contains('name', 'admin'))
+                        <a class="navbar-brand" href="{{ url('/reports') }}">
+                            Report
+                        </a>
+                    @endif
+                @endauth
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
