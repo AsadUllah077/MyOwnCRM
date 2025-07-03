@@ -4,7 +4,9 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\PurchaseLedgerController;
 use App\Http\Controllers\SaleController;
+use App\Http\Controllers\SaleLedgerController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -66,6 +68,10 @@ Route::middleware(['auth', 'is_user'])->group(function () {
     Route::get('/purchases/{id}/show', [PurchaseController::class, 'show'])->name('purchases.show');
     Route::get('/purchases/{id}/edit', [PurchaseController::class, 'edit'])->name('purchases.edit');
     Route::put('/purchases/{id}', [PurchaseController::class, 'update'])->name('purchases.update');
+
+    Route::get('/purchaseledger', [PurchaseLedgerController::class, 'index'])->name('purchaseledger.index');
+    Route::get('/saleledger', [SaleLedgerController::class, 'index'])->name('saleledger.index');
+
 
     Route::get('/sales', [SaleController::class, 'index'])->name('sales.index');
     Route::get('/sales/create', [SaleController::class, 'create'])->name('sales.create');

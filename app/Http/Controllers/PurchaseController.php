@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Purchase;
 use App\Models\PurchaseDetails;
+use App\Models\PurchaseLedger;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 
@@ -57,6 +58,7 @@ class PurchaseController extends Controller
         // Clamp paid amount to total_after_discount
         $paid_amount = min($request->paid_amount ?? 0, $total_after_discount);
 
+        $pending_amount = $total_after_discount - $paid_amount;
         // Determine payment status automatically if not set
         $payment_status = $request->payment_status;
         if (!$payment_status) {
@@ -80,6 +82,13 @@ class PurchaseController extends Controller
             'payment_status' => $payment_status,
             'notes' => $request->notes,
             'created_by' => auth()->id(),
+        ]);
+
+        PurchaseLedger::create([
+            'purchase_number' => $request->purchase_number,
+            'paid_amount' => $paid_amount,
+            'pending_amount' => $pending_amount,
+            'total_amount' => $total_after_discount,
         ]);
 
         // Create purchase items
@@ -148,7 +157,7 @@ class PurchaseController extends Controller
 
         // Clamp paid amount to total_after_discount
         $paid_amount = min($request->paid_amount ?? 0, $total_after_discount);
-
+        $pending_amount = $total_after_discount - $paid_amount;
         // Determine payment status automatically if not set
         $payment_status = $request->payment_status;
         if (!$payment_status) {
@@ -175,6 +184,13 @@ class PurchaseController extends Controller
             'payment_status' => $payment_status,
         ]);
 
+        $purchase_ledger = PurchaseLedger::where('purchase_number', $purchase->purchase_number)->first();
+        $purchase_ledger->update([
+            'paid_amount' => $paid_amount,
+            'pending_amount' => $pending_amount,
+            'total_amount' => $total_after_discount,
+        ]);
+
         // Remove old purchase details
         $purchase->purchaseDetails()->delete();
 
@@ -196,6 +212,7 @@ class PurchaseController extends Controller
     {
         $purchase = Purchase::findOrFail($id);
         PurchaseDetails::where('purchase_id', $id)->delete();
+        PurchaseLedger::where('purchase_number', $purchase->purchase_number)->delete();
         $purchase->delete();
         toastr()->success('Purchase deleted successfully.');
         return redirect()->route('purchases.index');

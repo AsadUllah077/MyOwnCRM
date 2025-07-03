@@ -87,6 +87,20 @@
                         </a>
                     @endif
                 @endauth
+                 @auth
+                    @if (auth()->user()->roles->contains('name', 'admin'))
+                        <a class="navbar-brand" href="{{ url('/purchaseledger') }}">
+                            Purchase Ledger
+                        </a>
+                    @endif
+                @endauth
+                @auth
+                    @if (auth()->user()->roles->contains('name', 'admin'))
+                        <a class="navbar-brand" href="{{ url('/saleledger') }}">
+                            Sale Ledger
+                        </a>
+                    @endif
+                @endauth
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">

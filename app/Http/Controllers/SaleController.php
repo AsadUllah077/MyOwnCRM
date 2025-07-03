@@ -7,6 +7,7 @@ use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Sale;
 use App\Models\saleDetail;
+use App\Models\SaleLedger;
 use Illuminate\Http\Request;
 
 class SaleController extends Controller
@@ -56,7 +57,7 @@ class SaleController extends Controller
 
         // Clamp paid amount to total_after_discount
         $paid_amount = min($request->paid_amount ?? 0, $total_after_discount);
-
+$pending_amount = $total_after_discount - $paid_amount;
         // Determine payment status automatically if not set
         $payment_status = $request->payment_status;
         if (!$payment_status) {
@@ -80,6 +81,13 @@ class SaleController extends Controller
             'payment_status' => $payment_status,
             'notes' => $request->notes,
             'created_by' => auth()->id(),
+        ]);
+
+         SaleLedger::create([
+            'sale_number' => $request->sale_number,
+            'paid_amount' => $paid_amount,
+            'pending_amount' => $pending_amount,
+            'total_amount' => $total_after_discount,
         ]);
 
         // Create sale items
@@ -148,7 +156,7 @@ class SaleController extends Controller
 
         // Clamp paid amount to total_after_discount
         $paid_amount = min($request->paid_amount ?? 0, $total_after_discount);
-
+ $pending_amount = $total_after_discount - $paid_amount;
         // Determine payment status automatically if not set
         $payment_status = $request->payment_status;
         if (!$payment_status) {
@@ -175,6 +183,12 @@ class SaleController extends Controller
             'payment_status' => $payment_status,
         ]);
 
+        $sale_ledger = SaleLedger::where('sale_number', $sale->sale_number)->first();
+        $sale_ledger->update([
+            'paid_amount' => $paid_amount,
+            'pending_amount' => $pending_amount,
+            'total_amount' => $total_after_discount,
+        ]);
         // Remove old sale details
         $sale->saleDetails()->delete();
 
@@ -196,6 +210,7 @@ class SaleController extends Controller
     {
         $sale = Sale::findOrFail($id);
         saleDetail::where('sale_id', $id)->delete();
+        SaleLedger::where('sale_number', $sale->sale_number)->delete();
         $sale->delete();
         toastr()->success('sale deleted successfully.');
         return redirect()->route('sales.index');
